@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: nammamelur
       POSTGRES_USER: devuser
-      POSTGRES_PASSWORD: MelurApp@2026
+      POSTGRES_PASSWORD: MelurApp$2026
     ports:
       - "5432:5432"
     volumes:
