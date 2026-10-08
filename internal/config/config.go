@@ -15,7 +15,7 @@ func Load() Config {
 	return Config{
 		AppEnv:      getEnv("APP_ENV", "development"),
 		AppPort:     getEnv("APP_PORT", "8080"),
-		DatabaseURL: getEnv("DATABASE_URL", "postgres://devuser:MelurApp@2026@localhost:5432/nammamelur?sslmode=disable"),
+		DatabaseURL: getEnv("DATABASE_URL", "postgres://devuser:MelurApp$2026@localhost:5432/nammamelur?sslmode=disable"),
 	}
 }
 
