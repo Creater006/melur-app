@@ -10,6 +10,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/nammmelur/melur-app/internal/auth"
 	"github.com/nammmelur/melur-app/internal/config"
 	"github.com/nammmelur/melur-app/internal/database"
 	apphttp "github.com/nammmelur/melur-app/internal/http"
@@ -36,9 +37,16 @@ func run() error {
 	}
 	defer db.Close()
 
+	authService, err := auth.NewServiceWithOptions(auth.NewPostgresRepository(db), cfg.JWTSecret, auth.ServiceOptions{
+		DevelopmentMode: cfg.AppEnv == "development",
+	})
+	if err != nil {
+		return err
+	}
+
 	server := &http.Server{
 		Addr:         cfg.Address(),
-		Handler:      apphttp.NewRouter(),
+		Handler:      apphttp.NewRouter(auth.NewHandler(authService)),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		IdleTimeout:  60 * time.Second,

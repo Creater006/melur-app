@@ -1,4 +1,4 @@
-.PHONY: run build test fmt docker-up docker-down migrate-up migrate-down
+.PHONY: run build test fmt docker-up docker-down migrate-up migrate-down seed-dev
 
 run:
 	go run ./cmd/server
@@ -23,3 +23,6 @@ migrate-up:
 
 migrate-down:
 	go run ./cmd/migrate -direction=down
+
+seed-dev:
+	go run ./cmd/seed
