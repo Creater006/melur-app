@@ -4,17 +4,18 @@ import (
 	"database/sql"
 	"flag"
 	"log"
-	"os"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/nammmelur/melur-app/internal/config"
 	"github.com/pressly/goose/v3"
 )
 
 func main() {
+	cfg := config.Load()
 	direction := flag.String("direction", "up", "migration direction: up or down")
 	flag.Parse()
 
-	databaseURL := os.Getenv("DATABASE_URL")
+	databaseURL := cfg.DatabaseURL
 	if databaseURL == "" {
 		log.Fatal("DATABASE_URL is required")
 	}
